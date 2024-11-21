@@ -11,17 +11,20 @@
 inputs.git-hooks.lib.${system}.run {
   src = lib.cleanSource "${self}/.";
   hooks = {
-    deadnix.enable = false;
-    statix.enable = false;
-    statix.settings.ignore = [
-      "flake.nix"
-      "*-compose.nix"
-      "mautrix-whatsapp.nix"
-      "mautrix-slack.nix"
-      ".devenv"
-      ".direnv"
-    ];
-    nixfmt-rfc-style.enable = true;
+    deadnix.enable = true;
+    alejandra.enable = true;
+    yamlfmt.enable = true;
     actionlint.enable = true;
+    statix = {
+      enable = false;
+      settings.ignore = [
+        "flake.nix"
+        "*-compose.nix"
+        "mautrix-whatsapp.nix"
+        "mautrix-slack.nix"
+        ".devenv"
+        ".direnv"
+      ];
+    };
   };
 }
