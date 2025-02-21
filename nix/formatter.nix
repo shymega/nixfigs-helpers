@@ -1,9 +1,7 @@
 # SPDX-FileCopyrightText: 2024 Dom Rodriguez <shymega@shymega.org.uk
 #
 # SPDX-License-Identifier: GPL-3.0-only
-
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   package = pkgs.treefmt;
   projectRootFile = "flake.nix";
 
@@ -22,7 +20,7 @@
   programs = {
     deadnix.enable = true;
     statix.enable = true;
-    nixfmt.enable = true;
+    alejandra.enable = true;
     yamlfmt.enable = true;
     jsonfmt.enable = true;
     mdformat.enable = true;
