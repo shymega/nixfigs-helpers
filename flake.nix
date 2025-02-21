@@ -60,7 +60,7 @@
     helpers = {
       formatter = ./nix/formatter.nix;
       checks = ./nix/checks.nix;
-      _24-05-compat = import ./nix/24.05-compat.nix {inherit (inputs.nixpkgs) lib;};
+      _24-11-compat = import ./nix/24.11-compat.nix {inherit (inputs.nixpkgs) lib;};
       devShells = ./nix/devshell.nix;
     };
     libx = forAllSystems (
@@ -96,7 +96,7 @@
     };
   };
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
     flake-compat = {
       url = "github:edolstra/flake-compat";
       flake = false;
