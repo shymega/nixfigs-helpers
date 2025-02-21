@@ -60,7 +60,6 @@
     helpers = {
       formatter = ./nix/formatter.nix;
       checks = ./nix/checks.nix;
-      _24-11-compat = import ./nix/24.11-compat.nix {inherit (inputs.nixpkgs) lib;};
       devShells = ./nix/devshell.nix;
     };
     libx = forAllSystems (
