@@ -20,6 +20,7 @@
     isAarch32
     ;
   inherit (pkgs.lib.strings) hasSuffix;
+  inherit (pkgs.lib) genAttrs;
   allLinuxSystems = [
     "x86_64-linux"
     "aarch64-linux"
@@ -46,9 +47,12 @@
     !isNixOS && isLinux && builtins.pathExists "/nix" && !builtins.pathExists "/etc/nixos";
   isNixOS = builtins.pathExists "/etc/nixos" && builtins.pathExists "/nix" && isLinux;
   isPC = isx86_64 || isi686;
-  isPCx64 = isx86_64;
-  isPCx32 = isi686;
-  forEachSystem = inputs.nixpkgs.lib.genAttrs systems;
+  isPC64 = isx86_64;
+  isPC32 = isi686;
+  isDarwinArm = pkgs.system == "aarch64-darwin";
+  isDarwinx86 = pkgs.system == "x86_64-darwin";``
+  forEachSystem = genAttrs systems;
+  forAllEachSystems = genAttrs allSystems;
   homePrefix =
     if isDarwin
     then "/Users"
@@ -59,8 +63,6 @@
       overlays = builtins.attrValues self.overlays;
       config = self.nixpkgs-config;
     };
-  hasRole = r: allRoles: builtins.elem r allRoles;
-  hasRoles = rs: allRoles: builtins.all (role: hasRole role allRoles) rs;
   mkHost = {
     type ? "nixos",
     address ? null,
@@ -144,4 +146,41 @@
           ;
       }
     else throw "unknown host type '${type}'";
+    roles = rec {
+      rolesList = [
+        "clockworkpi-dev"
+        "clockworkpi-prod"
+        "container"
+        "darwin"
+        "darwin-arm64"
+        "darwin-x86"
+        "embedded"
+        "gaming"
+        "github-runner"
+        "gitlab-runner"
+        "gpd-duo"
+        "jovian"
+        "minimal"
+        "mobile-nixos"
+        "nix-on-droid"
+        "personal"
+        "proxmox-lxc"
+        "proxmox-vm"
+        "raspberrypi-arm64"
+        "raspberrypi-zero"
+        "rnet"
+        "shynet"
+        "steamdeck"
+        "work"
+        "workstation"
+        "wsl"
+      ];
+      utils = rec {
+        checkRole = role: (builtins.elem role rolesList);
+        checkRoleIn = targetRole: hostRoles:
+          (builtins.elem targetRole rolesList) && (builtins.elem targetRole hostRoles);
+        checkRoles = targetRoles: hostRoles: (builtins.any checkRole targetRoles) && (builtins.any checkRole hostRoles);
+        checkAllRoles = targetRoles: hostRoles: (builtins.all checkRole targetRoles) && (builtins.all checkRole hostRoles);
+      };
+    };
 }
