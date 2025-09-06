@@ -4,7 +4,7 @@
 {
   self,
   inputs,
-  pkgs ? null,
+  pkgs ? inputs.nixpkgs.legacyPackages.x86_64-linux,
   ...
 }: rec {
   inherit
@@ -62,42 +62,5 @@
       inherit system;
       overlays = builtins.attrValues self.overlays;
       config = self.nixpkgs-config;
-    };
-    roles = rec {
-      rolesList = [
-        "clockworkpi-dev"
-        "clockworkpi-prod"
-        "container"
-        "darwin"
-        "darwin-arm64"
-        "darwin-x86"
-        "embedded"
-        "gaming"
-        "github-runner"
-        "gitlab-runner"
-        "gpd-duo"
-        "jovian"
-        "minimal"
-        "mobile-nixos"
-        "nix-on-droid"
-        "personal"
-        "proxmox-lxc"
-        "proxmox-vm"
-        "raspberrypi-arm64"
-        "raspberrypi-zero"
-        "rnet"
-        "shynet"
-        "steamdeck"
-        "work"
-        "workstation"
-        "wsl"
-      ];
-      utils = rec {
-        checkRole = role: (builtins.elem role rolesList);
-        checkRoleIn = targetRole: hostRoles:
-          (builtins.elem targetRole rolesList) && (builtins.elem targetRole hostRoles);
-        checkRoles = targetRoles: hostRoles: (builtins.any checkRole targetRoles) && (builtins.any checkRole hostRoles);
-        checkAllRoles = targetRoles: hostRoles: (builtins.all checkRole targetRoles) && (builtins.all checkRole hostRoles);
-      };
     };
 }
