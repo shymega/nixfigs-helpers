@@ -4,7 +4,7 @@
 {
   pkgs,
   self,
-  system,
+  hostPlatform,
   ...
 }: {
   default = pkgs.mkShell {
@@ -27,7 +27,7 @@
       shfmt
       statix
     ];
-    inherit (self.checks.${system}.pre-commit-check) shellHook;
-    buildInputs = self.checks.${system}.pre-commit-check.enabledPackages;
+    inherit (self.checks.${hostPlatform}.pre-commit-check) shellHook;
+    buildInputs = self.checks.${hostPlatform}.pre-commit-check.enabledPackages;
   };
 }
