@@ -44,11 +44,11 @@
         import ./lib {inherit self inputs pkgs;}
     );
     # for `nix fmt`
-    formatter = treeFmtEachSystem (pkgs: treeFmtEval.${pkgs.system}.config.build.wrapper);
+    formatter = treeFmtEachSystem (pkgs: treeFmtEval.${pkgs.stdenv.hostPlatform.system}.config.build.wrapper);
     # for `nix flake check`
     checks =
       treeFmtEachSystem (pkgs: {
-        formatting = treeFmtEval.${pkgs.system}.config.build.wrapper;
+        formatting = treeFmtEval.${pkgs.stdenv.hostPlatform.system}.config.build.wrapper;
       })
       // forEachSystem (system: {
         pre-commit-check = import ./nix/checks.nix {
