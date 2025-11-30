@@ -2,13 +2,13 @@
 #
 # SPDX-License-Identifier: GPL-3.0-only
 {
-  system,
+  hostPlatform,
   inputs,
   lib,
   self,
   ...
 }:
-inputs.git-hooks.lib.${system}.run {
+inputs.git-hooks.lib.${hostPlatform}.run {
   src = lib.cleanSource "${self}/.";
   hooks = {
     deadnix.enable = true;
