@@ -49,8 +49,8 @@
   isPC = isx86_64 || isi686;
   isPC64 = isx86_64;
   isPC32 = isi686;
-  isDarwinArm = pkgs.system == "aarch64-darwin";
-  isDarwinx86 = pkgs.system == "x86_64-darwin";
+  isDarwinArm = pkgs.stdenv.hostPlatform.system == "aarch64-darwin";
+  isDarwinx86 = pkgs.stdenv.hostPlatform.system == "x86_64-darwin";
   forEachSystem = genAttrs systems;
   forAllEachSystems = genAttrs allSystems;
   homePrefix =
