@@ -44,7 +44,7 @@
   getHomeDirectory = username: homePrefix + "/${username}";
   isArm = isArmv7 || isAarch64 || isAarch32;
   isForeignNix =
-    !isNixOS && isLinux && builtins.pathExists "/nix" && !builtins.pathExists "/etc/nixos";
+    !isNixOS && isLinux;
   isNixOS = builtins.pathExists "/etc/nixos" && builtins.pathExists "/nix" && isLinux;
   isPC = isx86_64 || isi686;
   isPC64 = isx86_64;
