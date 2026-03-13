@@ -4,7 +4,8 @@
 {
   pkgs,
   self,
-  hostPlatform,
+  system ? "x86_64-linux",
+  hostPlatform ? system,
   ...
 }: {
   default = pkgs.mkShell {

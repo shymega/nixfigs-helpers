@@ -52,7 +52,8 @@
       })
       // forEachSystem (system: {
         pre-commit-check = import ./nix/checks.nix {
-          inherit self system inputs;
+          inherit self inputs;
+          hostPlatform = system;
           inherit (inputs.nixpkgs) lib;
         };
       });
@@ -60,7 +61,10 @@
       system: let
         pkgs = genPkgs system;
       in
-        import ./nix/devshell.nix {inherit pkgs self system;}
+        import ./nix/devshell.nix {
+          inherit pkgs self;
+          hostPlatform = system;
+        }
     );
     nixpkgs-config = {
       allowUnfree = true;
