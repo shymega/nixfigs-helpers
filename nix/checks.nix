@@ -2,7 +2,8 @@
 #
 # SPDX-License-Identifier: GPL-3.0-only
 {
-  hostPlatform,
+  system ? "x86_64-linux",
+  hostPlatform ? system,
   inputs,
   lib,
   self,
