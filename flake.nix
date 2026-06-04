@@ -23,7 +23,6 @@
       "armv6l-linux"
       "armv7l-linux"
       "riscv64-linux"
-      "x86_64-darwin"
       "aarch64-darwin"
     ];
     treeFmtEachSystem = f: inputs.nixpkgs.lib.genAttrs systems (system: f inputs.nixpkgs.legacyPackages.${system});
