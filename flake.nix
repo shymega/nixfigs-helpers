@@ -73,7 +73,7 @@
     };
   };
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
+    nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/*";
     flake-compat = {
       url = "github:edolstra/flake-compat";
       flake = false;
