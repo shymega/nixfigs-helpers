@@ -90,7 +90,12 @@
       inputs = {
         nixpkgs.follows = "nixpkgs";
       };
+    
+      inputs.flake-compat.follows = "flake-compat";
     };
-    treefmt-nix.url = "github:numtide/treefmt-nix";
+    treefmt-nix = {
+      url = "github:numtide/treefmt-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 }
