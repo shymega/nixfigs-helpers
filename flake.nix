@@ -84,7 +84,6 @@
         nixpkgs.follows = "nixpkgs";
       };
     };
-    flake-utils.url = "github:numtide/flake-utils?ref=v1.0.0";
     git-hooks = {
       url = "github:cachix/git-hooks.nix";
       inputs = {
