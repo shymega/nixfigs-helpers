@@ -30,6 +30,7 @@
 
     forEachSystem = inputs.nixpkgs.lib.genAttrs systems;
     forAllSystems = inputs.nixpkgs.lib.genAttrs allSystems;
+    pkgsFor = forAllSystems genPkgs;
   in {
     helpers = {
       formatter = ./nix/formatter.nix;
@@ -38,7 +39,7 @@
     };
     libx = forAllSystems (
       system: let
-        pkgs = genPkgs system;
+        pkgs = pkgsFor.${system};
       in
         import ./lib {inherit self inputs pkgs;}
     );
@@ -58,7 +59,7 @@
       });
     devShells = forEachSystem (
       system: let
-        pkgs = genPkgs system;
+        pkgs = pkgsFor.${system};
       in
         import ./nix/devshell.nix {
           inherit pkgs self;
